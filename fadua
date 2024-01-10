@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Probabilidad</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #contador {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #resultado {
+            font-size: 18px;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Juego de Probabilidad</h1>
+
+    <form onsubmit="verificarDatos(event)">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" required>
+
+        <label for="deporte">Deporte que practica:</label>
+        <input type="text" id="deporte" required>
+
+        <button type="submit">Jugar</button>
+    </form>
+
+    <p id="contador"></p>
+    <p id="resultado"></p>
+
+    <script>
+        function verificarDatos(event) {
+            event.preventDefault();
+
+            var nombre = document.getElementById('nombre').value;
+            var apellido = document.getElementById('apellido').value;
+            var deporte = document.getElementById('deporte').value;
+
+            if (nombre && apellido && deporte) {
+                iniciarContador();
+            } else {
+                alert('Por favor, completa todos los campos.');
+            }
+        }
+
+        function iniciarContador() {
+            var contador = 1;
+            document.getElementById('contador').innerHTML = contador;
+
+            var interval = setInterval(function () {
+                contador++;
+                document.getElementById('contador').innerHTML = contador;
+
+                if (contador === 5) {
+                    clearInterval(interval);
+                    verificarGanador();
+                }
+            }, 1000);
+        }
+
+        function verificarGanador() {
+            var numeroAleatorio = Math.floor(Math.random() * 10) + 1;
+
+            if (numeroAleatorio === 1) {
+                document.getElementById('resultado').innerHTML = '¡Felicidades, eres el ganador!';
+            } else {
+                document.getElementById('resultado').innerHTML = 'Intenta de nuevo, no eres el ganador esta vez.';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
